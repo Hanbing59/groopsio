@@ -11,6 +11,8 @@ It is written as a C/C++ extension to NumPy and requires a few GROOPS  source fi
 Installation
 ------------
 
+### Using conda environments
+
 The recommended way to install groopsio is in a conda environment:
 
     conda create -n groopsio_env
@@ -25,7 +27,7 @@ Depending on your platform run
 
 * Windows Command Prompt
 
-        set GROOPS_SOURCE_DIR=/path/to/groops/source 
+        set GROOPS_SOURCE_DIR=/path/to/groops/source
         pip install .
 
 * Windows PowerShell
@@ -33,9 +35,29 @@ Depending on your platform run
         $env:GROOPS_SOURCE_DIR = '/path/to/groops/source '
         pip install .
 
-in the root directory of the package (i.e. the directory containing the ``setup.py`` file). 
+in the root directory of the package (i.e. the directory containing the ``setup.py`` file).
 The environment variable ``GROOPS_SOURCE_DIR`` should point to the `source`
 folder of GROOPS (if ommitted, ``$HOME/groops/source`` or the Windows equivalent ``C:\Users\NAME\groops\source`` is used).
+
+### Using pip virtual environments
+
+Create a virtual environment and activate it:
+
+    python3 -m venv .venv
+
+    source .venv/bin/activate  # Linux
+    .venv\Scripts\activate.bat  # Windows
+
+Install the required packages:
+
+    pip install -U pip setuptools wheel
+    pip install numpy cmake
+
+Specify the path to the GROOPS source directory via the environment variable ``GROOPS_SOURCE_DIR`` and install the `groopsio` package:
+
+    GROOPS_SOURCE_DIR=/path/to/groops/source pip install --no-build-isolation .
+
+The `--no-build-isolation` part matters here because pip’s isolated build env can hide the NumPy headers from the CMake process. Without it, pip may download NumPy but CMake still fails to find ``Python_NumPy_INCLUDE_DIRS``.
 
 Note that you will need a toolchain capable of building GROOPS. See the GROOPS installation guide for
 [Windows](https://github.com/groops-devs/groops/blob/main/INSTALL.md#microsoft-windows)

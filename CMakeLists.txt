@@ -1,9 +1,15 @@
 cmake_minimum_required(VERSION 3.16)
 
 project(groopsio LANGUAGES CXX Fortran)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Python COMPONENTS Development NumPy)
+find_package(Python REQUIRED COMPONENTS Development NumPy)
+message(STATUS "Python_FOUND=${Python_FOUND}")
+message(STATUS "Python_INCLUDE_DIRS=${Python_INCLUDE_DIRS}")
+message(STATUS "Python_LIBRARIES=${Python_LIBRARIES}")
+message(STATUS "Python_NumPy_INCLUDE_DIRS=${Python_NumPy_INCLUDE_DIRS}")
+
 include_directories(${Python_INCLUDE_DIRS})
 include_directories(${Python_NumPy_INCLUDE_DIRS})
 

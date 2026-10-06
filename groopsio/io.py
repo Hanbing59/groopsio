@@ -106,14 +106,14 @@ def savematrix(file_name, matrix, matrix_type='general', lower=False):
     """
     if matrix.ndim == 0:
         warnings.warn('0-dimensional array treated as 1x1 matrix.')
-        M = np.atleast_2d(matrix)
+        matrix = np.atleast_2d(matrix)
 
     elif matrix.ndim == 1:
         warnings.warn('1-dimensional array treated as column vector.')
         matrix = matrix[:, np.newaxis]
 
     elif matrix.ndim > 2:
-        raise ValueError('ndarray must have at most two dimensions (has {0:d}).'.format(M.ndim))
+        raise ValueError('ndarray must have at most two dimensions (has {0:d}).'.format(matrix.ndim))
 
     if split(file_name)[0] and not isdir(split(file_name)[0]):
         raise FileNotFoundError('Directory ' + split(file_name)[0] + ' does not exist.')
